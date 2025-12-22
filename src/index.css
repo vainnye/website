@@ -1,26 +1,10 @@
-/* @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap-dark.min.css"); */
-/*
-  index.css — Catppuccin Mocha overrides and mappings
+/* THEMING */
 
-  Purpose:
-  - Use the Catppuccin CDN palette variables (the CDN defines --ctp-mocha-*)
-  - Force visual overrides so your Bootstrap-based site adopts the Mocha palette
-  - Keep the bootstrap-dark import commented out as requested
-  - Provide safe fallbacks for browsers that don't see the variables
-
-  Notes:
-  - The Catppuccin palette is loaded from the CDN in index.html, which defines
-    variables like --ctp-mocha-base, --ctp-mocha-text, --ctp-mocha-blue, etc.
-  - This file references those variables (with sensible fallbacks) and uses
-    increased specificity and !important where necessary to override Bootstrap.
-*/
-
-/* Root-level mapping to make it easy to switch later if needed */
 :root {
     /* Primary textual & surface colors (fallbacks supplied) */
-    --site-bg: var(--ctp-mocha-base, #1e1e2e);
-    --site-mantle: var(--ctp-mocha-mantle, #181825);
-    --site-crust: var(--ctp-mocha-crust, #11111b);
+    --site-dark: var(--ctp-mocha-base, #1e1e2e);
+    --site-darker: var(--ctp-mocha-mantle, #1e1e2e);
+    --site-darkest: var(--ctp-mocha-crust, #11111b);
     --site-text: var(--ctp-mocha-text, #cdd6f4);
     --site-subtext: var(--ctp-mocha-subtext0, #a6adc8);
     --site-overlay0: var(--ctp-mocha-overlay0, #6c7086);
@@ -32,121 +16,72 @@
     --accent-lavender: var(--ctp-mocha-lavender, #b4befe);
     --accent-green: var(--ctp-mocha-green, #a6e3a1);
     --accent-peach: var(--ctp-mocha-peach, #fab387);
+    /* Font family */
+    --site-font:
+        "Inter", "Fira Mono", "Menlo", "Consolas", "Liberation Mono", monospace;
+
+    --bs-sm: 576;
+    --bs-md: 768;
+    --bs-lg: 992;
+    --bs-xl: 1200;
+    --bs-xxl: 1400;
 }
 
-/* Base page */
-html,
 body {
-    background-color: var(--site-bg) !important;
     color: var(--site-text) !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: beige;
+
+    background: linear-gradient(
+        var(--accent-blue) 0%,
+        var(--site-darker) 18rem
+    ) !important;
+    min-height: 100dvh;
 }
 
-/* Ensure container areas don't get an unexpected light bg from Bootstrap utilities */
-.container,
-.container-fluid,
-.row {
-    background-color: transparent !important;
+main.container {
+    max-width: min(1100px, 90ch); /* limit width on big screeens */
 }
 
-/* NAVBAR
-   - Bootstrap uses classes like .navbar and .bg-body-tertiary in your markup.
-   - We'll force these to use Catppuccin surfaces.
-*/
-.navbar,
-.bg-body-tertiary {
-    background-color: var(--site-surface2) !important;
-    color: var(--site-text) !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
-}
-
-/* Navbar links */
-.navbar .nav-link {
-    color: var(--site-subtext) !important;
-    transition: color 120ms ease;
-}
-.navbar .nav-link:hover,
-.navbar .nav-link:focus {
-    color: var(--site-text) !important;
-}
-.navbar .nav-link.active {
-    color: var(--site-text) !important;
-    font-weight: 600;
-}
-
-/* Toggler (hamburger) - keep visible on dark bg */
-.navbar-toggler-icon {
-    filter: invert(1) brightness(1.2) !important;
-}
-
-/* TEXT UTILITIES
-   Map common Bootstrap text utilities so they look correct with the theme.
-*/
 .text-dark {
-    color: var(--site-text) !important; /* buttons/icons that used text-dark */
+    color: var(--site-text) !important;
 }
 .text-secondary {
     color: var(--site-subtext) !important;
 }
 
-/* LINKS */
 a,
-a:link,
-a:visited {
-    color: var(--accent-blue) !important;
+a:link {
+    color: var(--accent-blue);
     text-decoration: none;
 }
+
+a:visited {
+    color: var(--accent-lavender);
+    text-decoration: none;
+}
+
 a:hover,
 a:focus {
-    color: var(--accent-lavender) !important;
     text-decoration: underline;
 }
 
-/* BADGES
-   - Your markup uses .badge.bg-secondary and .badge.bg-primary
-*/
-.badge.bg-secondary {
-    background-color: var(--site-overlay0) !important;
-    color: var(--site-text) !important;
-    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+.btn {
+    color: var(--site-text);
 }
-.badge.bg-primary {
+
+.btn:hover {
+    background-color: var(--accent-green);
+    color: var(--site-darkest);
+    cursor: pointer;
+}
+
+#language-badges .badge {
     background-color: var(--accent-blue) !important;
-    color: var(--site-crust) !important;
+    color: var(--site-darkest) !important;
     border: 1px solid rgba(0, 0, 0, 0.06) !important;
-}
-
-/* BUTTONS (safe defaults so components look coherent) */
-.btn-primary {
-    background-color: var(--accent-blue) !important;
-    border-color: var(--accent-blue) !important;
-    color: var(--site-crust) !important;
-}
-.btn-secondary {
-    background-color: var(--site-overlay0) !important;
-    border-color: var(--site-overlay0) !important;
-    color: var(--site-text) !important;
-}
-
-/* ICONS & DEVICONS
-   Some icon sets expect a light background; add subtle drop shadow for legibility.
-*/
-.devicon-*,
-.bi,
-.fi {
-    filter: drop-shadow(0 1px 0 rgba(0, 0, 0, 0.25)) !important;
-}
-
-/* FORMS, INPUTS - subtle surface mapping if added later */
-.form-control,
-input,
-textarea,
-select {
-    background-color: var(--site-mantle) !important;
-    color: var(--site-text) !important;
-    border: 1px solid var(--site-overlay0) !important;
-    box-shadow: none !important;
+    font-size: 1em;
 }
 
 /* SMALL LAYOUT TWEAKS */
@@ -156,33 +91,34 @@ h3,
 h4,
 h5,
 h6 {
-    color: var(--site-text) !important;
+    color: var(--site-text);
 }
 p,
 li {
     color: var(--site-subtext) !important;
 }
 
-/* Make sure Bootstrap theme attribute doesn't override these (higher specificity) */
-body[data-bs-theme="dark"] .nav-link,
-body[data-bs-theme="dark"] .navbar,
-body[data-bs-theme="dark"] .badge,
-body[data-bs-theme="dark"] .text-dark {
-    /* Re-apply our variables under the data-bs-theme scope to beat Bootstrap's internal rules */
-    color: inherit !important;
-    background-color: inherit !important;
+/* OTHER */
+
+.flag-emoji:has(+ .flag-emoji-cover) {
+    color: transparent;
 }
 
-/* Optional utility helpers you can use later */
-.cp-accent {
-    color: var(--accent-blue) !important;
-}
-.cp-muted {
-    color: var(--site-subtext) !important;
-}
-.cp-surface {
-    background-color: var(--site-surface1) !important;
-    color: var(--site-text) !important;
+.flag-cover-emoji {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
-/* End of file */
+.card {
+    background-color: var(--site-darker);
+    & * {
+        margin: 0;
+    }
+}
+
+#my-name {
+    color: var(--accent-peach);
+}
