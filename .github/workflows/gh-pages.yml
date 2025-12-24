@@ -67,7 +67,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Publish directory. If your site is built to a subfolder, adjust accordingly.
           # We use ./website/dist in case the repository root contains a `website` folder.
-          publish_dir: ./website/dist
+          publish_dir: ./dist
           # Target branch for the pages (commonly gh-pages)
           publish_branch: gh-pages
           # Keep history minimal (optional)
