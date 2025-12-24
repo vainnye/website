@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: "22"
 
+      - run: pwd
+      - run: ls
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -33,13 +36,22 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - run: pwd
+      - run: ls
+
       - name: Build
         env:
           VITE_BASE: "/"
         run: pnpm build
 
+      - run: pwd
+      - run: ls
+
       - name: Create .nojekyll
         run: touch dist/.nojekyll
+
+      - run: pwd
+      - run: ls
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
