@@ -114,7 +114,7 @@ function TopCard({ ...props }) {
           <h1 className="flex-1 leading-normal font-medium">Vianney</h1>
           <ButtonGroup className="flex-nowrap">
             <CopyButton
-              onCopy={() => toast("Email saved to clipboard.")}
+              onCopy={() => toast(t.email_saved_to_clipboard)}
               variant="outline"
             >
               vianney.jcmt@gmail.com

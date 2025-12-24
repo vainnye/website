@@ -28,6 +28,10 @@ export const config = {
       en: "https://www.linkedin.com/in/vianney-jacquemot/?locale=en_US",
       fr: "https://www.linkedin.com/in/vianney-jacquemot/?locale=fr_FR",
     },
+    email_saved_to_clipboard: {
+      en: "Email saved to clipboard.",
+      fr: "Email copiée dans le presse-papiers.",
+    },
     prog_languages: {
       en: "Programming Languages",
       fr: "Langages de programmation",
