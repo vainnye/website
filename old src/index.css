@@ -1,0 +1,124 @@
+/* THEMING */
+
+:root {
+    /* Primary textual & surface colors (fallbacks supplied) */
+    --site-dark: var(--ctp-mocha-base, #1e1e2e);
+    --site-darker: var(--ctp-mocha-mantle, #1e1e2e);
+    --site-darkest: var(--ctp-mocha-crust, #11111b);
+    --site-text: var(--ctp-mocha-text, #cdd6f4);
+    --site-subtext: var(--ctp-mocha-subtext0, #a6adc8);
+    --site-overlay0: var(--ctp-mocha-overlay0, #6c7086);
+    --site-surface1: var(--ctp-mocha-surface1, #45475a);
+    --site-surface2: var(--ctp-mocha-surface2, #585b70);
+
+    /* Accent / semantic */
+    --accent-blue: var(--ctp-mocha-blue, #89b4fa);
+    --accent-lavender: var(--ctp-mocha-lavender, #b4befe);
+    --accent-green: var(--ctp-mocha-green, #a6e3a1);
+    --accent-peach: var(--ctp-mocha-peach, #fab387);
+    /* Font family */
+    --site-font:
+        "Inter", "Fira Mono", "Menlo", "Consolas", "Liberation Mono", monospace;
+
+    --bs-sm: 576;
+    --bs-md: 768;
+    --bs-lg: 992;
+    --bs-xl: 1200;
+    --bs-xxl: 1400;
+}
+
+body {
+    color: var(--site-text) !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: beige;
+
+    background: linear-gradient(
+        var(--accent-blue) 0%,
+        var(--site-darker) 18rem
+    ) !important;
+    min-height: 100dvh;
+}
+
+main.container {
+    max-width: min(1100px, 90ch); /* limit width on big screeens */
+}
+
+.text-dark {
+    color: var(--site-text) !important;
+}
+.text-secondary {
+    color: var(--site-subtext) !important;
+}
+
+a,
+a:link {
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+a:visited {
+    color: var(--accent-lavender);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+}
+
+.btn {
+    color: var(--site-text);
+}
+
+.btn:hover {
+    background-color: var(--accent-green);
+    color: var(--site-darkest);
+    cursor: pointer;
+}
+
+#language-badges .badge {
+    background-color: var(--accent-blue) !important;
+    color: var(--site-darkest) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    font-size: 1em;
+}
+
+/* SMALL LAYOUT TWEAKS */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--site-text);
+}
+p,
+li {
+    color: var(--site-subtext) !important;
+}
+
+/* OTHER */
+
+.flag-emoji:has(+ .flag-emoji-cover) {
+    color: transparent;
+}
+
+.flag-cover-emoji {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card {
+    background-color: var(--site-darker);
+    & * {
+        margin: 0;
+    }
+}
+
+#my-name {
+    color: var(--accent-peach);
+}
