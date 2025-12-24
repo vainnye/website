@@ -26,49 +26,21 @@ jobs:
           node-version: "18"
           cache: "pnpm"
 
-      - name: Install dependencies
-        run: |
-          # If the project lives inside a subdirectory named "website", switch into it.
-          if [ -d website ]; then
-            cd website
-          fi
+      - name: Install pnpm
+        run: npm install -g pnpm
 
-          # Choose installer based on lockfile
-          if [ -f pnpm-lock.yaml ]; then
-            corepack enable
-            corepack prepare pnpm@latest --activate
-            pnpm install
-          elif [ -f yarn.lock ]; then
-            corepack enable
-            corepack prepare yarn@stable --activate
-            yarn install --frozen-lockfile
-          else
-            npm ci
-          fi
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Build
-        run: |
-          if [ -d website ]; then
-            cd website
-          fi
-
-          if [ -f pnpm-lock.yaml ]; then
-            pnpm build
-          elif [ -f yarn.lock ]; then
-            yarn build
-          else
-            npm run build --if-present
-          fi
+        env:
+          VITE_BASE: "/"
+        run: pnpm build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          # The default GITHUB_TOKEN is sufficient for a typical gh-pages deployment
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Publish directory. If your site is built to a subfolder, adjust accordingly.
-          # We use ./website/dist in case the repository root contains a `website` folder.
           publish_dir: ./dist
-          # Target branch for the pages (commonly gh-pages)
           publish_branch: gh-pages
-          # Keep history minimal (optional)
           keep_files: false
