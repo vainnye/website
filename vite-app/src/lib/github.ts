@@ -1,9 +1,12 @@
-const USERNAME = "vainnye";
+import config from "@/config";
+
+const USERNAME = config.gh_username;
+const GH_API_URL = "https://api.github.com";
 
 export function fetchRepo(name: string, init: RequestInit) {
-  return fetch(`https://api.github.com/repos/${USERNAME}/${name}`, init);
+  return fetch(`${GH_API_URL}/repos/${USERNAME}/${name}`, init);
 }
 
 export function fetchProfile(name: string = USERNAME, init: RequestInit) {
-  return fetch(`https://api.github.com/users/${name}`, init);
+  return fetch(`${GH_API_URL}/users/${name}`, init);
 }

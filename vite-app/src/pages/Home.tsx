@@ -19,7 +19,7 @@ import {
 import { toast } from "sonner";
 import * as DevIco from "developer-icons";
 
-import { A } from "@/lib/utils.tsx";
+import { A } from "@/components/A";
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -27,12 +27,19 @@ import { fetchRepo } from "@/lib/github";
 import { RDFIcon } from "@/assets/rdf.tsx";
 import { copyToClipboard } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/contexts/theme-context";
+import config from "@/config";
+import { useTranslation } from "@/lib/i18n";
+import { useLocale } from "@/contexts/locale-context";
+import Markdown from "@/components/Markdown";
 
 export function Home() {
+  const t = useTranslation();
+
   return (
     <>
-      <div className="flex justify-end p-4">
+      <div className="flex justify-between items-center w-full p-4">
+        <LanguageToggle />
         <DarkModeToggle />
       </div>
       <main className="flex flex-col gap-8 justify-start min-h-screen py-4 px-4 md:py-10 md:px-10 lg:px-50 xl:px-80">
@@ -43,8 +50,7 @@ export function Home() {
       </main>
       <footer className="flex flex-col gap-4 justify-center items-center py-4 px-4 md:py-10 md:px-10 lg:px-50 xl:px-80">
         <p className="text-muted-foreground text-center text-sm sm:text-base md:text-lg font-medium leading-relaxed">
-          &copy; 2025-{new Date().getFullYear()} Vianney Jacquemot. All rights
-          reserved.
+          {t.copyright}
         </p>
       </footer>
     </>
@@ -52,21 +58,55 @@ export function Home() {
 }
 
 function DarkModeToggle({ ...props }) {
-  const [checked, setChecked] = useState(false);
   const { setTheme, theme } = useTheme();
   return (
     <Switch
       checked={theme === "dark"}
       onCheckedChange={() => {
-        setTheme(checked ? "light" : "dark");
-        setChecked(!checked);
+        setTheme(theme === "dark" ? "light" : "dark");
       }}
       {...props}
     />
   );
 }
 
+function LanguageToggle({ ...props }) {
+  const { locale, setLocale } = useLocale();
+  const t = useTranslation();
+
+  let flag;
+  switch (locale) {
+    case "fr":
+      flag = "em em-us";
+      break;
+    case "en":
+      flag = "em em-fr";
+      break;
+    default:
+      flag = "em em-pirate_flag";
+  }
+
+  return (
+    <Button
+      aria-label="Toggle french/english"
+      size="sm"
+      variant="outline"
+      onClick={() => setLocale(locale === "en" ? "fr" : "en")}
+      {...props}
+    >
+      <i
+        className={flag + " mr-1"}
+        aria-role="presentation"
+        aria-label="France Flag"
+      ></i>
+      {t.switch_lang}
+    </Button>
+  );
+}
+
 function TopCard({ ...props }) {
+  const t = useTranslation();
+
   return (
     <Card {...props}>
       <CardHeader>
@@ -80,7 +120,7 @@ function TopCard({ ...props }) {
               vianney.jcmt@gmail.com
             </CopyButton>
             <Button asChild variant="outline" className="aspect-square">
-              <A href="https://www.linkedin.com/in/vianney-jacquemot/?locale=en_US">
+              <A href={t.url_linkedin}>
                 <IconBrandLinkedin />
               </A>
             </Button>
@@ -93,21 +133,12 @@ function TopCard({ ...props }) {
         </CardTitle>
         <CardDescription>
           <p>
-            <IconMapPin size="1em" className="inline align-sub" /> currently in
-            Chicoutimi, QC, Canada
+            <IconMapPin size="1em" className="inline align-sub" /> {t.location}
           </p>
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <p>
-          I'm a 20 year old <strong>backend developer</strong> and{" "}
-          <strong>data scientist</strong> from France. Currently pursuing a
-          double bachelor's degree with{" "}
-          <A href="https://www.universite-paris-saclay.fr/en">
-            Paris-Saclay University
-          </A>{" "}
-          and <A href="https://www.uqac.ca/">Chicoutimi University (UQAC)</A>.
-        </p>
+        <Markdown source={t.bio} />
       </CardContent>
     </Card>
   );
@@ -191,12 +222,7 @@ function LanguagesSection({ ...props }) {
 }
 
 function ProjectSection({ ...props }) {
-  const projects = [
-    { repo: "git-dirs", name: "`git dirs`" },
-    { repo: "bf-lingua-franca", name: "bf lingua franca" },
-    { repo: "stud-2025-proj-dps3-php", name: "voting as a social network" },
-    { repo: "stud-2025-proj-lampe-magique", name: "smart bulb remote" },
-  ];
+  const projects = config.gh_pinedd_repos;
 
   return (
     <section {...props}>

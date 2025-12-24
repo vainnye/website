@@ -1,15 +1,18 @@
 import { Toaster } from "sonner";
 import { Home } from "./pages/Home";
 import { ThemeProvider } from "./components/theme-provider";
+import { LocaleProvider } from "./components/locale-provider";
+import config from "./config";
 
 export function App() {
-  // return <ComponentExample />;
   return (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Home />
+        <LocaleProvider defaultLng={config.default_lng}>
+          <Home />
+          <Toaster />
+        </LocaleProvider>
       </ThemeProvider>
-      <Toaster /> {/* <-- mount Toaster here instead */}
     </>
   );
 }
