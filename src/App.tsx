@@ -7,7 +7,7 @@ import config from "./config";
 export function App() {
   return (
     <>
-      <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <LocaleProvider defaultLng={config.default_lng}>
           <Home />
           <Toaster />
