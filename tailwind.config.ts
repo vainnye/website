@@ -1,4 +1,4 @@
-website\vite-app\tailwind.config.ts
+website\tailwind.config.ts
 ```
 
 ```typescript
