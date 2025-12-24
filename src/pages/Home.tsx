@@ -177,9 +177,11 @@ function CopyButton({
 }
 
 function LanguagesSection({ ...props }) {
+  const t = useTranslation();
+
   return (
     <section {...props}>
-      <h2 className="text-center mb-4">Languages</h2>
+      <h2 className="text-center mb-4">{t.prog_languages}</h2>
       <div className="flex flex-wrap justify-center gap-2">
         <Badge variant="secondary">
           <DevIco.Java /> Java
@@ -222,11 +224,12 @@ function LanguagesSection({ ...props }) {
 }
 
 function ProjectSection({ ...props }) {
-  const projects = config.gh_pinedd_repos;
+  const projects = config.gh_pined_repos;
+  const t = useTranslation();
 
   return (
     <section {...props}>
-      <h2 className="text-center mb-4">Projects</h2>
+      <h2 className="text-center mb-4">{t.projects}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {projects.map(({ repo, name }) => (
           <ProjectCard key={repo} repo={repo} name={name} />
@@ -283,7 +286,7 @@ function ProjectCard({ repo, name }: { repo: string; name: string }) {
     <Card>
       <CardHeader>
         <CardTitle>
-          <A href={info?.html_url ?? "#"}>
+          <A href={info?.html_url ?? config.gh_profile_url + "/" + repo}>
             <h4 className="inline">{name}</h4>
           </A>
         </CardTitle>
