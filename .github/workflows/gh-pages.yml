@@ -3,11 +3,11 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - gh-pages
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -38,12 +38,12 @@ jobs:
           VITE_BASE: "/"
         run: pnpm build
 
-      - name: Ensure dist contains a dotfile so cp glob won't fail
-        run: touch ./dist/.nojekyll
+      - name: Create .nojekyll
+        run: touch dist/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: gh-pages
+          keep_files: false
