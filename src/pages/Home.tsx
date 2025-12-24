@@ -205,8 +205,8 @@ function LanguagesSection({ ...props }) {
           <DevIco.CSharp /> C#
         </Badge>
         <Badge variant="secondary">
-          <DevIco.HTML5 /> HTML <DevIco.CSS3 /> CSS <DevIco.JavaScript />{" "}
-          JavaScript
+          <DevIco.HTML5 /> HTML <DevIco.CSS3 /> CSS <DevIco.TypeScript />{" "}
+          TypeScript
         </Badge>
         <Badge variant="secondary">
           <DevIco.MongoDB /> MongoDb
