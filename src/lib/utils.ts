@@ -28,3 +28,13 @@ export async function copyToClipboard(text: string) {
   document.body.removeChild(textarea);
   return copied;
 }
+
+export function isIPAddress(str: string) {
+  // Regex simple pour IPv4 : 4 groupes de chiffres séparés par des points
+  const regexIPv4 = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/;
+
+  // (Optionnel) Regex pour IPv6 si nécessaire
+  const regexIPv6 = /^[a-fA-F0-9:]+$/;
+
+  return regexIPv4.test(str) || regexIPv6.test(str);
+}

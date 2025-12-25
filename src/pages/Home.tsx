@@ -18,7 +18,7 @@ import {
 } from "@tabler/icons-react";
 import { toast } from "sonner";
 import * as DevIco from "developer-icons";
-
+import { isIPAddress } from "@/lib/utils";
 import { A } from "@/components/A";
 import { useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -39,9 +39,23 @@ export function Home() {
 
   return (
     <>
-      <div className="flex justify-between items-center w-full p-4">
-        <LanguageToggle />
-        <DarkModeToggle />
+      <div
+        className="flex w-full p-4 items-center justify-between
+        md:grid md:grid-cols-3 md:gap-4 md:justify-between md:items-center"
+      >
+        <div className="flex justify-start">
+          <LanguageToggle />
+        </div>
+        <div className="hidden md:flex justify-center">
+          <Badge>
+            {!isIPAddress(window?.location?.hostname)
+              ? window?.location?.hostname
+              : "vna is a dev"}
+          </Badge>
+        </div>
+        <div className="flex justify-end">
+          <DarkModeToggle />
+        </div>
       </div>
       <main className="flex flex-col gap-8 justify-start min-h-screen py-4 px-4 md:py-10 md:px-10 lg:px-50 xl:px-80">
         <TopCard />
