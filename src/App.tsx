@@ -1,4 +1,4 @@
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { Home } from "./pages/Home";
 import { ThemeProvider } from "./components/Provider/ThemeProvider";
 import { LocaleProvider } from "./components/Provider/LocaleProvider";
@@ -10,7 +10,14 @@ export function App() {
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <LocaleProvider defaultLng={config.default_lng}>
           <Home />
-          <Toaster />
+          {/*toast for when a user copies my email*/}
+          <Toaster
+            position="top-center"
+            expand={true}
+            swipeDirections={["right", "top", "bottom", "left"]}
+            visibleToasts={1}
+            duration={2000}
+          />
         </LocaleProvider>
       </ThemeProvider>
     </>

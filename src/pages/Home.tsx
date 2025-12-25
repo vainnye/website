@@ -15,7 +15,7 @@ import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import Markdown from "@/components/Markdown";
 import MorphText from "@/components/MorphText";
-import { Badge } from "@/components/ui/badge";
+import { Badge as UIBadge } from "@/components/ui/badge";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Separator } from "@/components/ui/separator";
 import config from "@/config";
@@ -56,7 +56,7 @@ function TopCard({ ...props }) {
   const animationShouldPlay = !playedLocales.includes(locale);
 
   return (
-    <Card {...props}>
+    <Card {...props} className="gap-4">
       <CardHeader>
         <CardTitle className="flex flex-wrap gap-2 items-center">
           {animationShouldPlay ? (
@@ -98,16 +98,25 @@ function ContactButtonGroup() {
     <ButtonGroup className="flex-nowrap">
       <CopyButton
         onCopy={() => toast(t.email_saved_to_clipboard)}
+        className="text-foreground transition-colors hover:text-primary"
         variant="outline"
       >
         vianney.jcmt@gmail.com
       </CopyButton>
-      <Button asChild variant="outline" className="aspect-square">
+      <Button
+        asChild
+        variant="outline"
+        className="text-foreground transition-colors hover:text-blue-500"
+      >
         <A href={t.url_linkedin}>
           <IconBrandLinkedin />
         </A>
       </Button>
-      <Button asChild variant="outline" className="aspect-square">
+      <Button
+        asChild
+        variant="outline"
+        className="text-foreground transition-colors hover:text-yellow-400"
+      >
         <A href="https://github.com/vainnye">
           <IconBrandGithub />
         </A>
@@ -116,47 +125,58 @@ function ContactButtonGroup() {
   );
 }
 
+function Badge({ children }: { children: React.ReactNode }) {
+  return (
+    <UIBadge
+      className="h-6 py-1 px-2 lg:h-10 lg:py-2 lg:px-3 text-md gap-2 [&>svg]:size-full!"
+      variant="secondary"
+    >
+      {children}
+    </UIBadge>
+  );
+}
+
 function LanguagesSection({ ...props }) {
   const t = useTranslation();
 
   return (
-    <section {...props}>
+    <section id="programming-languages" {...props}>
       <h2 className="text-center mb-4">{t.prog_languages}</h2>
       <div className="flex flex-wrap justify-center gap-2">
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.Java /> Java
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.Python /> Python
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.Go /> Go
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.R /> R
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.PHP /> PHP
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.CPlusPlus /> C++
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.CSharp /> C#
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.HTML5 /> HTML <DevIco.CSS3 /> CSS <DevIco.TypeScript />{" "}
           TypeScript
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.MongoDB /> MongoDb
         </Badge>
-        <Badge variant="secondary">
+        <Badge>
           <DevIco.Oracle /> Oracle Ex <DevIco.MySQL /> Mysql <DevIco.MariaDB />{" "}
           MariaDb
         </Badge>
-        <Badge variant="secondary">
-          <RDFIcon /> SPARQL & RDF
+        <Badge>
+          <RDFIcon /> SPARQL &amp; RDF
         </Badge>
       </div>
     </section>
