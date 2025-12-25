@@ -16,6 +16,26 @@ export const config = {
       fr: "switch to English",
       en: "passer en français",
     },
+    anim_line_1: {
+      en: "Hi I'm Vianney!",
+      fr: "Bonjour !",
+    },
+    anim_line_2: {
+      en: 'call me "V N A"',
+      fr: "moi c'est Vianney",
+    },
+    anim_line_3: {
+      en: "hiring an intern?",
+      fr: "recherche stage",
+    },
+    anim_line_4: {
+      en: "reach me out!",
+      fr: "contactez moi !",
+    },
+    anim_line_5: {
+      en: "Vianney",
+      fr: "Vianney",
+    },
     location: {
       en: "currently in Chicoutimi, QC, Canada",
       fr: "actuellement à Chicoutimi (Québec)",
