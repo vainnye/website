@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { Lng } from "@/lib/i18n";
-import { LocaleContext } from "@/contexts/locale-context";
+import { LocaleContext } from "@/contexts/LocaleContext";
 
 /**
  * LocaleProvider

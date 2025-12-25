@@ -1,6 +1,6 @@
 import config from "@/config";
 import { useMemo } from "react";
-import { useLocale } from "@/contexts/locale-context";
+import { useLocale } from "@/contexts/LocaleContext";
 
 export type Lng = (typeof config.lngs)[number];
 type I18n = Record<Lng, string>;

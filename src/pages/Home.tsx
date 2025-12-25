@@ -7,111 +7,41 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { ButtonGroup } from "@/components/ui/button-group";
-import {
-  IconBrandLinkedin,
-  IconBrandGithub,
-  IconClipboardCopy,
-  IconClipboardCheck,
-  IconMapPin,
-  IconClipboardX,
-} from "@tabler/icons-react";
-import { toast } from "sonner";
-import * as DevIco from "developer-icons";
-import { isIPAddress } from "@/lib/utils";
-import { A } from "@/components/A";
-import { useEffect, useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { fetchRepo } from "@/lib/github";
 import { RDFIcon } from "@/assets/rdf.tsx";
-import { copyToClipboard } from "@/lib/utils";
-import { Switch } from "@/components/ui/switch";
-import { useTheme } from "@/contexts/theme-context";
-import config from "@/config";
-import { useTranslation } from "@/lib/i18n";
-import { useLocale } from "@/contexts/locale-context";
+import { A } from "@/components/A";
+import { CopyButton } from "@/components/Button/CopyButton";
+import { ProjectCard } from "@/components/Card/ProjectCard";
+import { Footer } from "@/components/Footer/Footer";
+import { Header } from "@/components/Header/Header";
 import Markdown from "@/components/Markdown";
 import MorphText from "@/components/MorphText";
+import { Badge } from "@/components/ui/badge";
+import { ButtonGroup } from "@/components/ui/button-group";
+import { Separator } from "@/components/ui/separator";
+import config from "@/config";
+import { useLocale } from "@/contexts/LocaleContext";
+import { useTranslation } from "@/lib/i18n";
+import {
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconMapPin,
+} from "@tabler/icons-react";
+import * as DevIco from "developer-icons";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export function Home() {
-  const t = useTranslation();
-
   return (
     <>
-      <div
-        className="flex w-full p-4 items-center justify-between
-        md:grid md:grid-cols-3 md:gap-4 md:justify-between md:items-center"
-      >
-        <div className="flex justify-start">
-          <LanguageToggle />
-        </div>
-        <div className="hidden md:flex justify-center">
-          <Badge>
-            {!isIPAddress(window?.location?.hostname)
-              ? window?.location?.hostname
-              : "vna is a dev"}
-          </Badge>
-        </div>
-        <div className="flex justify-end">
-          <DarkModeToggle />
-        </div>
-      </div>
+      <Header />
       <main className="flex flex-col gap-8 justify-start min-h-screen py-4 px-4 md:py-10 md:px-10 lg:px-50 xl:px-80">
         <TopCard />
         <LanguagesSection />
         <Separator className="border-t-2" />
         <ProjectSection />
       </main>
-      <footer className="flex flex-col gap-4 justify-center items-center py-4 px-4 md:py-10 md:px-10 lg:px-50 xl:px-80">
-        <p className="text-muted-foreground text-center text-sm sm:text-base md:text-lg font-medium leading-relaxed">
-          {t.copyright}
-        </p>
-      </footer>
+      <Footer />
     </>
-  );
-}
-
-function DarkModeToggle({ ...props }) {
-  const { setTheme, theme } = useTheme();
-  return (
-    <Switch
-      checked={theme === "dark"}
-      onCheckedChange={() => {
-        setTheme(theme === "dark" ? "light" : "dark");
-      }}
-      {...props}
-    />
-  );
-}
-
-function LanguageToggle({ ...props }) {
-  const { locale, setLocale } = useLocale();
-  const t = useTranslation();
-
-  let flag;
-  switch (locale) {
-    case "fr":
-      flag = "em em-us";
-      break;
-    case "en":
-      flag = "em em-fr";
-      break;
-    default:
-      flag = "em em-pirate_flag";
-  }
-
-  return (
-    <Button
-      aria-label="Toggle french/english"
-      size="sm"
-      variant="outline"
-      onClick={() => setLocale(locale === "en" ? "fr" : "en")}
-      {...props}
-    >
-      <i className={flag + " mr-1"}></i>
-      {t.switch_lang}
-    </Button>
   );
 }
 
@@ -146,24 +76,7 @@ function TopCard({ ...props }) {
               <h1>{t.anim_line_5}</h1>
             </div>
           )}
-          <ButtonGroup className="flex-nowrap">
-            <CopyButton
-              onCopy={() => toast(t.email_saved_to_clipboard)}
-              variant="outline"
-            >
-              vianney.jcmt@gmail.com
-            </CopyButton>
-            <Button asChild variant="outline" className="aspect-square">
-              <A href={t.url_linkedin}>
-                <IconBrandLinkedin />
-              </A>
-            </Button>
-            <Button asChild variant="outline" className="aspect-square">
-              <A href="https://github.com/vainnye">
-                <IconBrandGithub />
-              </A>
-            </Button>
-          </ButtonGroup>
+          <ContactButtonGroup />
         </CardTitle>
         <CardDescription>
           <p>
@@ -178,35 +91,28 @@ function TopCard({ ...props }) {
   );
 }
 
-function CopyButton({
-  children,
-  onCopy,
-  ...props
-}: React.ComponentProps<typeof Button> & { onCopy?: () => void }) {
-  const [success, setSuccess] = useState(null as boolean | null);
-
-  async function handleCopy() {
-    const text = typeof children === "string" ? children.trim() : "";
-
-    const copied = await copyToClipboard(text);
-    setSuccess(copied);
-    if (copied && typeof onCopy === "function") {
-      onCopy();
-    }
-    setTimeout(() => setSuccess(null), 1500);
-  }
+function ContactButtonGroup() {
+  const t = useTranslation();
 
   return (
-    <Button className="select-text" onClick={handleCopy} {...props}>
-      {children}
-      {success === true ? (
-        <IconClipboardCheck className="text-success" />
-      ) : success === false ? (
-        <IconClipboardX className="text-destructive" />
-      ) : (
-        <IconClipboardCopy />
-      )}
-    </Button>
+    <ButtonGroup className="flex-nowrap">
+      <CopyButton
+        onCopy={() => toast(t.email_saved_to_clipboard)}
+        variant="outline"
+      >
+        vianney.jcmt@gmail.com
+      </CopyButton>
+      <Button asChild variant="outline" className="aspect-square">
+        <A href={t.url_linkedin}>
+          <IconBrandLinkedin />
+        </A>
+      </Button>
+      <Button asChild variant="outline" className="aspect-square">
+        <A href="https://github.com/vainnye">
+          <IconBrandGithub />
+        </A>
+      </Button>
+    </ButtonGroup>
   );
 }
 
@@ -270,66 +176,5 @@ function ProjectSection({ ...props }) {
         ))}
       </div>
     </section>
-  );
-}
-
-function ProjectCard({ repo, name }: { repo: string; name: string }) {
-  const [info, setInfo] = useState<{
-    html_url: string;
-    description: string;
-  } | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const ac = new AbortController();
-    setLoading(true);
-
-    (async () => {
-      try {
-        const res = await fetchRepo(repo, { signal: ac.signal });
-        if (!res.ok) {
-          setInfo({ html_url: "", description: "" });
-        } else {
-          const data = await res.json();
-          setInfo({
-            html_url: data.html_url ?? "",
-            description: data.description ?? "",
-          });
-        }
-      } catch (err) {
-        // If the fetch was aborted, it's usually a DOMException named "AbortError"
-        if (err instanceof DOMException && err.name === "AbortError") {
-          // ignore or handle abort-specific logic
-          return;
-        }
-
-        // handle all other errors
-        console.error(err);
-        setInfo({ html_url: "", description: "" });
-      } finally {
-        setLoading(false);
-      }
-    })();
-
-    return () => {
-      ac.abort();
-    };
-  }, [repo]);
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>
-          <A href={info?.html_url ?? config.gh_profile_url + "/" + repo}>
-            <h4 className="inline">{name}</h4>
-          </A>
-        </CardTitle>
-        <CardDescription>
-          <p>
-            {loading ? "Loading..." : (info?.description ?? "No description")}
-          </p>
-        </CardDescription>
-      </CardHeader>
-    </Card>
   );
 }

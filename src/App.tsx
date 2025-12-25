@@ -1,7 +1,7 @@
 import { Toaster } from "sonner";
 import { Home } from "./pages/Home";
-import { ThemeProvider } from "./components/theme-provider";
-import { LocaleProvider } from "./components/locale-provider";
+import { ThemeProvider } from "./components/Provider/ThemeProvider";
+import { LocaleProvider } from "./components/Provider/LocaleProvider";
 import config from "./config";
 
 export function App() {
