@@ -1,0 +1,16 @@
+#anim-morph-container {
+    /* This filter is a lot of the magic, try commenting it out to see how the morphing works! */
+    filter: url(#threshold) blur(0.6px);
+}
+
+/* Your average text styling */
+#anim-morph-text1,
+#anim-morph-text2 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: left;
+    display: inline-block;
+
+    user-select: none;
+}

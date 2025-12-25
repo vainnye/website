@@ -32,6 +32,7 @@ import config from "@/config";
 import { useTranslation } from "@/lib/i18n";
 import { useLocale } from "@/contexts/locale-context";
 import Markdown from "@/components/Markdown";
+import MorphText from "@/components/MorphText";
 
 export function Home() {
   const t = useTranslation();
@@ -94,11 +95,7 @@ function LanguageToggle({ ...props }) {
       onClick={() => setLocale(locale === "en" ? "fr" : "en")}
       {...props}
     >
-      <i
-        className={flag + " mr-1"}
-        aria-role="presentation"
-        aria-label="France Flag"
-      ></i>
+      <i className={flag + " mr-1"}></i>
       {t.switch_lang}
     </Button>
   );
@@ -106,12 +103,35 @@ function LanguageToggle({ ...props }) {
 
 function TopCard({ ...props }) {
   const t = useTranslation();
+  const { locale } = useLocale();
+
+  const headingClassName = "flex-1 p-0 text-nowrap leading-normal";
+
+  // last locale for which the animation finished
+  const [playedLocales, setPlayedLocales] = useState<string[]>([]);
+  const animationShouldPlay = !playedLocales.includes(locale);
 
   return (
     <Card {...props}>
       <CardHeader>
-        <CardTitle className="flex flex-wrap items-center">
-          <h1 className="flex-1 leading-normal font-medium">Vianney</h1>
+        <CardTitle className="flex flex-wrap gap-2 items-center">
+          {animationShouldPlay ? (
+            <MorphText
+              className={headingClassName}
+              onFinish={() => setPlayedLocales([...playedLocales, locale])}
+              texts={[
+                t.anim_line_1,
+                t.anim_line_2,
+                t.anim_line_3,
+                t.anim_line_4,
+                t.anim_line_5,
+              ]}
+            />
+          ) : (
+            <div className={headingClassName}>
+              <h1>{t.anim_line_5}</h1>
+            </div>
+          )}
           <ButtonGroup className="flex-nowrap">
             <CopyButton
               onCopy={() => toast("Email saved to clipboard.")}
