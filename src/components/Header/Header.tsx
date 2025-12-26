@@ -3,8 +3,9 @@ import { isIPAddress } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/contexts/ThemeContext";
-import { useLocale } from "@/contexts/LocaleContext";
+import { LocaleContext } from "@/contexts/LocaleContext";
 import { useTranslation } from "@/lib/i18n";
+import { use } from "react";
 
 export function Header() {
   return (
@@ -43,7 +44,7 @@ function DarkModeToggle({ ...props }) {
 }
 
 function LanguageToggle({ ...props }) {
-  const { locale, setLocale } = useLocale();
+  const { locale, setLocale } = use(LocaleContext);
   const t = useTranslation();
 
   let flag;

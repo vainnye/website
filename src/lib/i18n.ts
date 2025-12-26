@@ -1,11 +1,15 @@
 import config from "@/config";
-import { useMemo } from "react";
-import { useLocale } from "@/contexts/LocaleContext";
+import { use, useMemo } from "react";
+import { LocaleContext } from "@/contexts/LocaleContext";
 
 export type Lng = (typeof config.lngs)[number];
 type I18n = Record<Lng, string>;
 export type ContentKeys = keyof typeof config.content;
 export type Translations = { [K in ContentKeys]: string };
+
+export function isSupportedLang(lang: string | null): lang is Lng {
+  return (config.lngs as readonly string[]).includes(lang as string);
+}
 
 export function createTranslatorProxy(lng: Lng): Translations {
   const handler: ProxyHandler<Record<string, I18n>> = {
@@ -46,6 +50,6 @@ export function createTranslatorProxy(lng: Lng): Translations {
 }
 
 export function useTranslation(): Translations {
-  const { locale } = useLocale();
+  const { locale } = use(LocaleContext);
   return useMemo(() => createTranslatorProxy(locale), [locale]);
 }

@@ -19,7 +19,7 @@ import { Badge as UIBadge } from "@/components/ui/badge";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Separator } from "@/components/ui/separator";
 import config from "@/config";
-import { useLocale } from "@/contexts/LocaleContext";
+import { LocaleContext } from "@/contexts/LocaleContext";
 import { useTranslation } from "@/lib/i18n";
 import {
   IconBrandGithub,
@@ -27,8 +27,9 @@ import {
   IconMapPin,
 } from "@tabler/icons-react";
 import * as DevIco from "developer-icons";
-import { useState } from "react";
+import { use, useState } from "react";
 import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 export function Home() {
   return (
@@ -41,13 +42,21 @@ export function Home() {
         <ProjectSection />
       </main>
       <Footer />
+      {/*toast for when a user copies my email*/}
+      <Toaster
+        position="top-center"
+        expand={true}
+        swipeDirections={["right", "top", "bottom", "left"]}
+        visibleToasts={1}
+        duration={2000}
+      />
     </>
   );
 }
 
 function TopCard({ ...props }) {
   const t = useTranslation();
-  const { locale } = useLocale();
+  const { locale } = use(LocaleContext);
 
   const headingClassName = "flex-1 p-0 text-nowrap leading-normal";
 

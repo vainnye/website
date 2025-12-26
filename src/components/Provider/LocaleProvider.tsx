@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
-import type { Lng } from "@/lib/i18n";
+import { isSupportedLang, type Lng } from "@/lib/i18n";
 import { LocaleContext } from "@/contexts/LocaleContext";
+import config from "@/config";
 
-/**
- * LocaleProvider
- *
- * This file intentionally exports only React components so that React Fast Refresh
- * can operate without ESLint warnings from `react-refresh/only-export-components`.
- */
-export function LocaleProvider({
-  defaultLng,
-  children,
-}: {
-  defaultLng: Lng;
-  children: React.ReactNode;
-}) {
-  const [locale, setLocale] = useState<Lng>(() => {
-    const stored = (localStorage.getItem("locale") || defaultLng) as Lng;
-    return stored;
-  });
+export function LocaleProvider({ children }: { children: React.ReactNode }) {
+  const langParam = new URLSearchParams(window.location.search).get("lang");
+  const langStored = localStorage.getItem("locale");
+
+  const [locale, setLocale] = useState<Lng>(
+    isSupportedLang(langParam)
+      ? langParam
+      : isSupportedLang(langStored)
+        ? langStored
+        : config.default_lng,
+  );
 
   useEffect(() => {
     try {

@@ -1,5 +1,3 @@
-export type Lng = (typeof config.lngs)[number];
-
 // TODO: use a i18n library to not only store strings but also more complex data structures
 // For example, you might want to store the display duration for each anim_line_X to be used in the morph animation
 
