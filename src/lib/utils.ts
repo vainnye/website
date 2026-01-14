@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+import { useMedia } from "react-use";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -37,4 +39,8 @@ export function isIPAddress(str: string) {
   const regexIPv6 = /^[a-fA-F0-9:]+$/;
 
   return regexIPv4.test(str) || regexIPv6.test(str);
+}
+
+export function useIsSmall() {
+  return useMedia("(min-width: 640px)");
 }

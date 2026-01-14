@@ -30,6 +30,7 @@ import * as DevIco from "developer-icons";
 import { use, useState } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { useIsSmall } from "@/lib/utils";
 
 export function Home() {
   return (
@@ -103,35 +104,71 @@ function TopCard({ ...props }) {
 function ContactButtonGroup() {
   const t = useTranslation();
 
-  return (
-    <ButtonGroup className="flex-nowrap">
-      <CopyButton
-        onCopy={() => toast(t.email_saved_to_clipboard)}
-        className="text-foreground transition-colors hover:text-primary"
-        variant="outline"
-      >
-        vianney.jcmt@gmail.com
-      </CopyButton>
-      <Button
-        asChild
-        variant="outline"
-        className="text-foreground transition-colors hover:text-blue-500"
-      >
-        <A href={t.url_linkedin}>
-          <IconBrandLinkedin />
-        </A>
-      </Button>
-      <Button
-        asChild
-        variant="outline"
-        className="text-foreground transition-colors hover:text-yellow-400"
-      >
-        <A href="https://github.com/vainnye">
-          <IconBrandGithub />
-        </A>
-      </Button>
-    </ButtonGroup>
-  );
+  const isSmall = useIsSmall();
+
+  if (!isSmall) {
+    return (
+      <>
+        <ButtonGroup className="flex-nowrap">
+          <Button
+            asChild
+            variant="outline"
+            className="text-foreground transition-colors hover:text-blue-500"
+          >
+            <A href={t.url_linkedin}>
+              <IconBrandLinkedin />
+            </A>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="text-foreground transition-colors hover:text-yellow-400"
+          >
+            <A href="https://github.com/vainnye">
+              <IconBrandGithub />
+            </A>
+          </Button>
+        </ButtonGroup>
+        <CopyButton
+          onCopy={() => toast(t.email_saved_to_clipboard)}
+          className="w-full text-foreground transition-colors hover:text-primary"
+          variant="outline"
+        >
+          vianney.jacquemot@gmail.com
+        </CopyButton>
+      </>
+    );
+  } else {
+    return (
+      <ButtonGroup className="flex-nowrap">
+        <CopyButton
+          onCopy={() => toast(t.email_saved_to_clipboard)}
+          className="text-foreground transition-colors hover:text-primary"
+          variant="outline"
+        >
+          vianney.jacquemot@gmail.com
+        </CopyButton>
+        <Button
+          asChild
+          variant="outline"
+          className="text-foreground transition-colors hover:text-blue-500"
+        >
+          <A href={t.url_linkedin}>
+            <IconBrandLinkedin />
+          </A>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          className="text-foreground transition-colors hover:text-yellow-400"
+        >
+          <A href="https://github.com/vainnye">
+            <IconBrandGithub />
+          </A>
+        </Button>
+      </ButtonGroup>
+    );
+  }
 }
 
 function Badge({ children }: { children: React.ReactNode }) {

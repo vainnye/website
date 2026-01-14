@@ -42,8 +42,8 @@ export const config = {
       fr: "actuellement à Chicoutimi (Québec)",
     },
     bio: {
-      en: `I'm a 20-year-old **full-stack developer** and **data scientist** from France. Currently pursuing a double bachelor's degree with [Paris-Saclay University](https://www.universite-paris-saclay.fr/en) and the [University of Quebec at Chicoutimi (UQAC)](https://www.uqac.ca/).`,
-      fr: `Je suis un **développeur full-stack** et **data scientist** de 20 ans, originaire de France. Je prépare actuellement un double diplôme (BUT & Bachelor) avec [l'Université Paris-Saclay](https://www.universite-paris-saclay.fr/) et [l'Université du Québec à Chicoutimi (UQAC)](https://www.uqac.ca/).`,
+      en: `I'm a 20-year-old **data scientist** and **full-stack developer** from France. Currently pursuing a double bachelor's degree with [Paris-Saclay University](https://www.universite-paris-saclay.fr/en) and the [University of Quebec at Chicoutimi (UQAC)](https://www.uqac.ca/).`,
+      fr: `Je suis un **data scientist** et **développeur full-stack** de 20 ans, originaire de France. Je prépare actuellement un double diplôme (BUT & Bachelor) avec [l'Université Paris-Saclay](https://www.universite-paris-saclay.fr/) et [l'Université du Québec à Chicoutimi (UQAC)](https://www.uqac.ca/).`,
     },
     url_linkedin: {
       en: "https://www.linkedin.com/in/vianney-jacquemot/?locale=en_US",
