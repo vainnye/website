@@ -5,11 +5,14 @@ This is my personal developer website, where I showcase my projects and provide 
 ## Dev & build
 
 ```sh
+# dev
 pnpm dev # localhost
 pnpm dev --host # 0.0.0.0
+
+# prod
+pnpm build && vite dist
 pnpm preview # production preview on localhost
 pnpm preview --host # production preview on 0.0.0.0
-pnpm build && vite dist
 ```
 
 ## TODO
