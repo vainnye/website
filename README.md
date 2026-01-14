@@ -2,6 +2,15 @@
 
 This is my personal developer website, where I showcase my projects and provide information about myself.
 
+## Dev & build
+
+```sh
+pnpm dev # localhost
+pnpm dev --host # 0.0.0.0
+pnpm preview # production preview on localhost
+pnpm preview --host # production preview on 0.0.0.0
+pnpm build && vite dist
+```
 
 ## TODO
 
