@@ -110,7 +110,7 @@ function ContactButtonGroup() {
         className="text-foreground transition-colors hover:text-primary"
         variant="outline"
       >
-        vianney.jcmt@gmail.com
+        vianney.jacquemot@gmail.com
       </CopyButton>
       <Button
         asChild
